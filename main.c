@@ -1,14 +1,14 @@
+// TODO tidy-up code; add java docs; re-impliment Node.coprimes as linked list for dynamic allocation; add user input
+
 #include <stdio.h>
 #include <stdlib.h>
 
-#define COPRIME_ARRAY_LENGTH 999
+#define COPRIME_ARRAY_LENGTH 8100
 
 typedef struct Node {
     int value;
     int numberOfCoprimes;
     struct Node* next;
-
-    // TODO could be over-indexed
     struct Node* coprimes[COPRIME_ARRAY_LENGTH];
 } Node;
 
@@ -111,7 +111,7 @@ int main() {
     // int n = 3;
     // int m = 3;
     // int maxNum =  n * m;
-    int maxNum = 999;
+    int maxNum = 8100;
 
     printGraph(generateGraph(maxNum));
 }
