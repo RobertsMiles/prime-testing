@@ -89,29 +89,47 @@ Node* generateGraph(int maxNum) {
         findCoprimes(head, node, maxNum);
         node = (*node).next;
     }
-    
+
     return head;
 }
 
-void printGraph(Node* node) {
-    while (node != NULL) {
-        printf("%d\n", (*node).value);
+void printNode(Node* node, char* verbose) {
+    printf("%d\n", (*node).value);
+    if (*verbose == 'y') {
         for (int i = 0; i < (*node).numberOfCoprimes; i++) {
             if (i == (*node).numberOfCoprimes - 1)
                 printf("└── %d\n", (*(*node).coprimes[i]).value);
             else
                 printf("├── %d\n", (*(*node).coprimes[i]).value);
         }
+    }
+}
+
+void printGraph(Node* node, char* verbose) {
+    while (node != NULL) {
+        // printf("%d\n", (*node).value);
+        // for (int i = 0; i < (*node).numberOfCoprimes; i++) {
+        //     if (i == (*node).numberOfCoprimes - 1)
+        //         printf("└── %d\n", (*(*node).coprimes[i]).value);
+        //     else
+        //         printf("├── %d\n", (*(*node).coprimes[i]).value);
+        // }
+
+        printNode(node, verbose);
 
         node = (*node).next;
     }
 }
 
 int main() {
-    // int n = 3;
-    // int m = 3;
-    // int maxNum =  n * m;
-    int maxNum = 8100;
+    int max;
+    char verbose;
 
-    printGraph(generateGraph(maxNum));
+    printf("Enter max: ");
+    scanf("%d", &max);
+
+    printf("Verbose? (y/n): ");
+    scanf(" %c", &verbose);
+
+    printGraph(generateGraph(max), &verbose);
 }
