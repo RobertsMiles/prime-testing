@@ -1,4 +1,9 @@
-// TODO tidy-up code; add java docs; re-impliment Node.coprimes as linked list for dynamic allocation; have output go to file rather than std out
+// TODO
+// tidy-up code;
+// add java docs;
+// re-impliment Node.coprimes as linked list for dynamic allocation;
+// have output go to file rather than std out
+// have main josh program read in coprimes from file
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -88,8 +93,8 @@ Node* generateGraph(int maxNum) {
     // link coprimes
     Node* node = head;
     for (int i = 0; i < maxNum; i++) {
-        printf("Linked %d / %d nodes...\n", i, maxNum);
         findCoprimes(head, node, maxNum);
+        printf("Linked %d / %d nodes...\n", i + 1, maxNum);
         node = (*node).next;
     }
 
@@ -97,15 +102,13 @@ Node* generateGraph(int maxNum) {
 }
 
 void printNode(Node* node, char* verbosity) {
-    if (*verbosity == 'p' || *verbosity == 'v') {
-        printf("%d\n", (*node).value);
-        if (*verbosity == 'v') {
-            for (int i = 0; i < (*node).numberOfCoprimes; i++) {
-                if (i == (*node).numberOfCoprimes - 1)
-                    printf("└── %d\n", (*(*node).coprimes[i]).value);
-                else
-                    printf("├── %d\n", (*(*node).coprimes[i]).value);
-            }
+    printf("%d\n", (*node).value);
+    if (*verbosity == 'v') {
+        for (int i = 0; i < (*node).numberOfCoprimes; i++) {
+            if (i == (*node).numberOfCoprimes - 1)
+                printf("└── %d\n", (*(*node).coprimes[i]).value);
+            else
+                printf("├── %d\n", (*(*node).coprimes[i]).value);
         }
     }
 }
@@ -136,5 +139,8 @@ int main() {
     printf("Print nodes (p), print nodes with coprimes (v), no output (n): ");
     scanf(" %c", &verbosity);
 
-    printGraph(generateGraph(max), &verbosity);
+    Node* head = generateGraph(max);
+
+    if (verbosity == 'p' || verbosity == 'v')
+        printGraph(head, &verbosity);
 }
